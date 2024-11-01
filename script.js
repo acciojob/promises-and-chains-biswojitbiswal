@@ -2,7 +2,7 @@
 let form = document.getElementById("form")
 let nameInput = document.getElementById("name");
 let ageInput = document.getElementById("age");
-let validate = document.getElementById("validation");
+
 
 
 form.addEventListener("submit", (e) => {
@@ -10,8 +10,8 @@ form.addEventListener("submit", (e) => {
 
     validate.textContent = "";
 
-    if(nameInput.value === "" || ageInput.value === ""){
-        validate.textContent = "inputs cannot be empty.";
+    if(!nameInput.value || !ageInput.value){
+        alert("inputs cannot be empty.");
         return;
     }
 
