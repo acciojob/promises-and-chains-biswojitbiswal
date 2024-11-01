@@ -8,7 +8,6 @@ let ageInput = document.getElementById("age");
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    validate.textContent = "";
 
     if(!nameInput.value || !ageInput.value){
         alert("inputs cannot be empty.");
@@ -20,13 +19,17 @@ form.addEventListener("submit", (e) => {
 
     new Promise((resolve, reject) => {
         setTimeout(() => {
-            if(age > 18){
-                resolve(`Welcome, ${name}. You can vote.`)
+            if (age >= 18) {
+                resolve();
             } else {
-                reject(`Oh sorry ${name}. You aren't old enough.`)
+                reject();
             }
-        }, 4000);
+        }, 4000); // 4-second delay
     })
-    .then(message => alert(message))
-    .catch(error => alert(error));
+    .then(() => {
+        alert(`Welcome, ${name}. You can vote.`);
+    })
+    .catch(() => {
+        alert(`Oh sorry ${name}. You aren't old enough.`);
+    });
 });
