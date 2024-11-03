@@ -1,35 +1,27 @@
 //your JS code here. If required.
-let form = document.getElementById("form")
-let nameInput = document.getElementById("name");
-let ageInput = document.getElementById("age");
+document.getElementById("userForm").addEventListener("submit", function(event) {
+    event.preventDefault();
 
+    const name = document.getElementById("name").value.trim();
+    const age = parseInt(document.getElementById("age").value.trim(), 10);
 
-
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-
-    if(!nameInput.value || !ageInput.value){
-        alert("inputs cannot be empty.");
+    if (!name || isNaN(age)) {
+        alert("Please fill in both fields.");
         return;
     }
-
-    let age = parseInt(ageInput.value);
-    let name = nameInput.value;
-
+	
     new Promise((resolve, reject) => {
         setTimeout(() => {
-            if (age >= 18) {
-                resolve();
+            if (age > 18) {
+                resolve(`Welcome, ${name}. You can vote.`);
             } else {
-                reject();
+                reject(`Oh sorry ${name}. You aren't old enough.`);
             }
-        }, 4000); // 4-second delay
+        }, 4000);
     })
-    .then(() => {
-        alert(`Welcome, ${name}. You can vote.`);
-    })
-    .catch(() => {
-        alert(`Oh sorry ${name}. You aren't old enough.`);
-    });
+    .then(message => alert(message))
+    .catch(error => alert(error));
 });
+
+
+
