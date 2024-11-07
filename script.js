@@ -3,24 +3,29 @@ document.getElementById("userForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
     const name = document.getElementById("name").value.trim();
-    const age = parseInt(document.getElementById("age").value.trim(), 10);
+    const age = parseInt(document.getElementById("age").value.trim());
 
-    if (!name || isNaN(age)) {
+    if (name === "" || isNaN(age)) {
         alert("Please fill in both fields.");
         return;
     }
 	
-    new Promise((resolve, reject) => {
-        setTimeout(() => {
+    function ageCheck() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
             if (age > 18) {
-                resolve(`Welcome, ${name}. You can vote.`);
+              resolve(`Welcome, ${name}. You can vote.`);
             } else {
-                reject(`Oh sorry ${name}. You aren't old enough.`);
+              reject(`Oh sorry ${name}. You aren't old enough.`);
             }
-        }, 4000);
-    })
-    .then(message => alert(message))
-    .catch(error => alert(error));
+          }, 4000); // 4-second delay
+        });
+      }
+
+      // Call the ageCheck function and handle the promise
+      ageCheck()
+        .then((message) => alert(message))
+        .catch((error) => alert(error));
 });
 
 
